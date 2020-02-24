@@ -1,5 +1,6 @@
 #include<iostream>
 #include<cstdlib>
+#include<chrono>
 #include<fstream>
 
 using namespace std;
@@ -8,25 +9,36 @@ void swapping(int &a, int &b);
 void display(int *array, int size);
 void merge(int *array, int l, int m, int r);
 void mergeSort(int *array, int l, int r);
-void write_file(int x_points, double y_points );
+void write_file(int x_points, auto y_points );
 
 
 int main(){
 	
-    int n;
-    cout << "Enter the size of the array: ";
-    cin >> n;
-    int arr[n];     //create an array with given number of elements
+    int n = 0;
+    //cout << "Enter the size of the array: ";
+    //cin >> n;
+    while(n<=10000000){
+    	int arr[n];     //create an array with given number of elements
     srand(rand());
-    cout << "Enter elements to be  sorted:" << endl;
+    //cout << "Enter elements to be  sorted:" << endl;
     for(int i = 0; i<n; i++) {
    		arr[i] =  rand();
     }
-    cout << "Array before sorting: ";
-    display(arr, n);
+    //cout << "Array before sorting: ";
+    //display(arr, n);
+	std::chrono::system_clock::time_point start = std::chrono::high_resolution_clock::now();
     mergeSort(arr, 0, n-1);     //(n-1) for last index
-    cout << "Array after sorting: ";
-    display(arr, n);
+    std::chrono::system_clock::time_point end = std::chrono::high_resolution_clock::now();
+	auto duration = std::chrono::duration_cast<std::chrono::microseconds> (end - start).count();
+	write_file(n, duration );
+    //cout << "Array after sorting: ";
+    ////display(arr, n);
+    n+=10000;
+	}
+	
+	cout<<"Done"<<"\n";
+	return 0;
+    
 }
 
 
@@ -89,7 +101,7 @@ void mergeSort(int *array, int l, int r) {
    }
 }
 
-void write_file(int x_points, double y_points ){
+void write_file(int x_points, auto y_points ){
 	std::ofstream file;
 	file.open("dataPoints.dat", std::ios::app);
 	
