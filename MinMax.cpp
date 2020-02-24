@@ -8,7 +8,7 @@ int main(){
 	cout<<"Enter array Size : ";
 	
 	cin>>value;
-	cout<<"Please Enter The Values One After The Other "<<endl;
+	cout<<"Please Enter values: "<<endl;
 	int arr[value];
 	for(int i = 0; i < value; i++){
 		
